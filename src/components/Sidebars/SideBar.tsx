@@ -11,6 +11,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { ChevronLeft, ChevronRight, Cog, FileQuestion, Laptop, Server, Users } from 'lucide-react';
 import { useSidebar } from "@/components/ui/sidebar"
 
+
 import '../../styles/Sidebar.scss';
 
 type Department = 'Frontend' | 'Backend' | 'DevOps' | 'HR' | 'QA';
