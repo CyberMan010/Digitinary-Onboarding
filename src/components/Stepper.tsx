@@ -1,60 +1,87 @@
 import React from 'react';
 import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Check, FileText, Code, Layers, Rocket, Settings } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 
 interface Step {
   title: string;
   description: string;
+  icon: React.ReactNode;
 }
 
 interface StepperProps {
   steps: Step[];
   currentStep: number;
   onStepClick: (step: number) => void;
+  completedSteps: number[];
 }
 
-export function Stepper({ steps, currentStep, onStepClick }: StepperProps) {
+const stepIcons = [
+  <FileText className="h-4 w-4" />,
+  <Code className="h-4 w-4" />,
+  <Layers className="h-4 w-4" />,
+  <Settings className="h-4 w-4" />,
+  <Rocket className="h-4 w-4" />,
+];
+
+export function Stepper({ steps, currentStep, onStepClick, completedSteps }: StepperProps) {
   return (
-    <div className="w-full py-4">
+    <nav aria-label="Project Workflow Progress" className="w-full py-4">
       <ol className="flex items-center w-full">
         {steps.map((step, index) => (
           <li
             key={step.title}
             className={cn(
-              "flex items-center text-blue-600 dark:text-blue-500 space-x-2.5",
-              index < steps.length - 1 && "w-full",
-              index < currentStep && "text-green-600 dark:text-green-500"
+              "flex items-center space-x-2.5",
+              index < steps.length - 1 && "w-full"
             )}
           >
-            <button
-              className={cn(
-                "flex items-center justify-center w-8 h-8 border-2 rounded-full shrink-0",
-                index < currentStep
-                  ? "border-green-500 dark:border-green-400"
-                  : index === currentStep
-                  ? "border-blue-500 dark:border-blue-400"
-                  : "border-gray-500 dark:border-gray-400"
-              )}
-              onClick={() => onStepClick(index)}
-            >
-              {index < currentStep ? (
-                <svg className="w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5.917 5.724 10.5 15 1.5"/>
-                </svg>
-              ) : (
-                <span>{index + 1}</span>
-              )}
-            </button>
-            <span className="hidden sm:inline-flex">{step.title}</span>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className={cn(
+                      "w-10 h-10 rounded-full p-0 transition-colors",
+                      index < currentStep && "bg-green-100 border-green-500 text-green-700",
+                      index === currentStep && "bg-blue-100 border-blue-500 text-blue-700",
+                      index > currentStep && "bg-gray-100 border-gray-300 text-gray-500"
+                    )}
+                    onClick={() => onStepClick(index)}
+                    aria-current={index === currentStep ? "step" : undefined}
+                  >
+                    {completedSteps.includes(index) ? (
+                      <Check className="w-5 h-5" />
+                    ) : (
+                      stepIcons[index]
+                    )}
+                    <span className="sr-only">{`${step.title} ${
+                      completedSteps.includes(index) ? "(Completed)" : ""
+                    }`}</span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{step.title}</p>
+                  <p className="text-xs text-muted-foreground">{step.description}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <span className="hidden sm:inline-flex text-sm font-medium">{step.title}</span>
             {index < steps.length - 1 && (
-              <div className={cn(
-                "flex-1 h-0.5 bg-gray-200 dark:bg-gray-700",
-                index < currentStep && "bg-green-500 dark:bg-green-400"
-              )}></div>
+              <div 
+                className={cn(
+                  "flex-1 h-0.5 bg-gray-200 dark:bg-gray-700",
+                  index < currentStep && "bg-green-500 dark:bg-green-400"
+                )}
+                aria-hidden="true"
+              ></div>
             )}
           </li>
         ))}
       </ol>
-    </div>
+    </nav>
   );
 }
 
