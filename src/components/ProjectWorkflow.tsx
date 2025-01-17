@@ -1,128 +1,192 @@
-import React, { useState, useEffect } from 'react';
-import { Stepper } from './Stepper';
-import { Description } from './Description';
-import { FileText, Code, Layers, Settings, Rocket } from 'lucide-react';
-import { Button } from "@/components/ui/button";
-import { useToast } from '@/hooks/use-toast';
+import React, { useState, useEffect } from 'react'
+import { FileText, Code, Layers, Rocket, Settings } from 'lucide-react'
+import { Button } from "@/components/ui/button"
+import { Progress } from "@/components/ui/progress"
+import { useToast } from '@/hooks/use-toast'
+import Stepper from './Stepper'
+import { Description } from './Description'
 
 const steps = [
   {
     title: "Architecture",
-    description: "Define the project structure and initial setup.",
+    overview: "Introduction to micro-frontend architecture and Digitinary-UI.",
     icon: <FileText className="h-4 w-4" />,
-    requirements: "Project structure, initial setup, configuration files.",
-    implementationGuide: "1. Create project directory\n2. Initialize version control\n3. Set up build tools and configuration",
+    content: [
+      {
+        title: "Micro Frontend",
+        overview: "Micro Frontend is a design pattern to split large and complex web applications or modules into light-weight web apps that can be deployed independently.",
+        resources: [
+          { title: "Micro Frontend Overview", link: "#" },
+          { title: "Detailed Architecture", link: "#" }
+        ],
+        image: "/placeholder.svg?height=300&width=400"
+      },
+      {
+        title: "Digitinary-UI",
+        overview: "A UI library designed to maintain consistency across all modules with reusable components and styling.",
+        resources: [
+          { title: "Digitinary-UI Documentation", link: "#" }
+        ]
+      }
+    ],
     tasks: [
-      { id: "arch1", description: "Create project directory", completed: false },
-      { id: "arch2", description: "Initialize Git repository", completed: false },
-      { id: "arch3", description: "Set up build tools", completed: false },
+      { id: "arch1", description: "Review Micro Frontend architecture", completed: false },
+      { id: "arch2", description: "Study Digitinary-UI components", completed: false },
+      { id: "arch3", description: "Set up project structure", completed: false },
     ]
   },
   {
-    title: "Business Logic",
-    description: "Explain functional and business requirements.",
+    title: "Business Requirements",
+    overview: "Key business requirements and objectives for the project.",
     icon: <Code className="h-4 w-4" />,
-    requirements: "User stories, functional requirements, business rules.",
-    implementationGuide: "1. Document user stories\n2. Define data models\n3. Create flowcharts for key processes",
+    content: [
+      {
+        overview: "A description of the key business requirements and objectives for the project.",
+        resources: [
+          { title: "Business Docs Link 1", link: "#" },
+          { title: "Business Docs Link 2", link: "#" }
+        ]
+      }
+    ],
     tasks: [
-      { id: "bl1", description: "Write user stories", completed: false },
-      { id: "bl2", description: "Define data models", completed: false },
-      { id: "bl3", description: "Create process flowcharts", completed: false },
+      { id: "br1", description: "Analyze business requirements", completed: false },
+      { id: "br2", description: "Define project objectives", completed: false },
     ]
   },
   {
-    title: "Tech Integration",
-    description: "Cover libraries, frameworks, and coding standards.",
+    title: "Technical Setup",
+    overview: "Technical requirements and setup process for the project.",
     icon: <Layers className="h-4 w-4" />,
-    requirements: "List of libraries and frameworks, coding style guide.",
-    implementationGuide: "1. Choose and install necessary libraries\n2. Set up linting and formatting tools\n3. Document coding standards",
+    content: [
+      {
+        overview: "This section outlines the technical requirements and setup process for the project.",
+        requiredRepos: [
+          "container: Core container repository for the project.",
+          "common-layout: Shared layout repository for consistent design."
+        ],
+        optionalRepos: [
+          "c360: Core business logic and components.",
+          "User Management: User-related features and services."
+        ],
+        libraries: [
+          "Redux: For state management.",
+          "Digitinary-UI: Reusable UI components.",
+          "Context API: Additional state management for isolated components."
+        ]
+      }
+    ],
     tasks: [
-      { id: "ti1", description: "Install required libraries", completed: false },
-      { id: "ti2", description: "Set up linting and formatting", completed: false },
-      { id: "ti3", description: "Document coding standards", completed: false },
+      { id: "ts1", description: "Set up required repositories", completed: false },
+      { id: "ts2", description: "Install necessary libraries", completed: false },
+      { id: "ts3", description: "Configure development environment", completed: false },
     ]
   },
   {
-    title: "Create New Module",
-    description: "Hands-on tasks, such as creating reusable components or modules.",
-    icon: <Settings className="h-4 w-4" />,
-    requirements: "Module specifications, integration points.",
-    implementationGuide: "1. Design the module structure\n2. Implement the module\n3. Write unit tests\n4. Document usage and API",
-    tasks: [
-      { id: "mod1", description: "Design module structure", completed: false },
-      { id: "mod2", description: "Implement module", completed: false },
-      { id: "mod3", description: "Write unit tests", completed: false },
-      { id: "mod4", description: "Document module usage and API", completed: false },
-    ]
-  },
-  {
-    title: "Deployment",
-    description: "Guide deployment processes and tools (e.g., CI/CD pipelines).",
+    title: "Deployment Process",
+    overview: "Deployment environments and Jira ticket process.",
     icon: <Rocket className="h-4 w-4" />,
-    requirements: "Deployment environment details, CI/CD requirements.",
-    implementationGuide: "1. Set up CI/CD pipeline\n2. Configure deployment environments\n3. Create deployment scripts\n4. Document deployment process",
+    content: [
+      {
+        overview: "The project has three deployment environments, each with specific purposes:",
+        environments: [
+          "Develop: Used for ongoing development.",
+          "Test: For the QA team to verify changes.",
+          "Staging (STG): Pre-production environment for client reviews."
+        ],
+        image: "/placeholder.svg?height=300&width=400",
+        jiraProcess: [
+          "Deploy changes to the Develop environment and verify functionality.",
+          "Once verified, move the changes to the Test environment for QA validation.",
+          "After successful testing, mark the tickets as Ready for Test and prepare for deployment to STG."
+        ]
+      }
+    ],
     tasks: [
-      { id: "dep1", description: "Set up CI/CD pipeline", completed: false },
-      { id: "dep2", description: "Configure deployment environments", completed: false },
-      { id: "dep3", description: "Create deployment scripts", completed: false },
-      { id: "dep4", description: "Document deployment process", completed: false },
+      { id: "dp1", description: "Set up deployment environments", completed: false },
+      { id: "dp2", description: "Configure CI/CD pipeline", completed: false },
+      { id: "dp3", description: "Document deployment process", completed: false },
+    ]
+  },
+  {
+    title: "Creating a Custom Module",
+    overview: "Step-by-step guide on creating a new custom module.",
+    icon: <Settings className="h-4 w-4" />,
+    content: [
+      {
+        overview: "A step-by-step guide on creating a new custom module using the project's CLI.",
+        steps: [
+          "Design the module structure",
+          "Implement the module",
+          "Write unit tests",
+          "Document usage and API"
+        ]
+      }
+    ],
+    tasks: [
+      { id: "cm1", description: "Design module structure", completed: false },
+      { id: "cm2", description: "Implement module", completed: false },
+      { id: "cm3", description: "Write unit tests", completed: false },
+      { id: "cm4", description: "Document module usage and API", completed: false },
     ]
   }
-];
+]
 
-export function ProjectWorkflow() {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
-  const [stepTasks, setStepTasks] = useState(steps.map(step => step.tasks));
-  const { toast } = useToast();
+export default function ProjectWorkflow() {
+  const [currentStep, setCurrentStep] = useState(0)
+  const [completedSteps, setCompletedSteps] = useState<number[]>([])
+  const [stepTasks, setStepTasks] = useState(steps.map(step => step.tasks))
+  const { toast } = useToast()
 
   useEffect(() => {
-    const allCompleted = stepTasks.every(tasks => tasks.every(task => task.completed));
+    const allCompleted = stepTasks.every(tasks => tasks.every(task => task.completed))
     if (allCompleted) {
       toast({
         title: "Project Completed!",
         description: "Congratulations! You've completed all tasks in the project workflow.",
-      });
+      })
     }
-  }, [stepTasks, toast]);
+  }, [stepTasks, toast])
 
   const handleStepClick = (step: number) => {
-    setCurrentStep(step);
-  };
+    setCurrentStep(step)
+  }
 
   const handleTaskComplete = (taskId: string, completed: boolean) => {
-    const newStepTasks = [...stepTasks];
+    const newStepTasks = [...stepTasks]
     newStepTasks[currentStep] = newStepTasks[currentStep].map(task => 
       task.id === taskId ? { ...task, completed } : task
-    );
-    setStepTasks(newStepTasks);
+    )
+    setStepTasks(newStepTasks)
 
     if (newStepTasks[currentStep].every(task => task.completed)) {
-      setCompletedSteps([...new Set([...completedSteps, currentStep])]);
+      setCompletedSteps([...new Set([...completedSteps, currentStep])])
       toast({
         title: "Step Completed!",
         description: `You've completed all tasks in the "${steps[currentStep].title}" step.`,
-      });
+      })
     } else {
-      setCompletedSteps(completedSteps.filter(step => step !== currentStep));
+      setCompletedSteps(completedSteps.filter(step => step !== currentStep))
     }
-  };
+  }
 
   const handleNextStep = () => {
     if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1);
+      setCurrentStep(currentStep + 1)
     }
-  };
+  }
 
   const handlePreviousStep = () => {
     if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
+      setCurrentStep(currentStep - 1)
     }
-  };
+  }
+
+  const completedTasks = stepTasks[currentStep].filter(task => task.completed).length
+  const progressPercentage = (completedTasks / stepTasks[currentStep].length) * 100
 
   return (
-    <div className="container mx-auto px-4 space-y-8">
-      <h2 className="text-3xl font-bold">Project Workflow</h2>
+    <div className="container mx-auto px-4 py-8 space-y-8">
+      <h1 className="text-3xl font-bold text-center mb-6">Arena Project Workflow</h1>
       <Stepper 
         steps={steps} 
         currentStep={currentStep} 
@@ -130,11 +194,16 @@ export function ProjectWorkflow() {
         completedSteps={completedSteps}
       />
       <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-        <h3 className="text-2xl font-semibold mb-4">{steps[currentStep].title}</h3>
-        <p className="text-muted-foreground mb-6">{steps[currentStep].description}</p>
-        <Description
-          requirements={steps[currentStep].requirements}
-          implementationGuide={steps[currentStep].implementationGuide}
+        <h2 className="text-2xl font-semibold mb-4">{steps[currentStep].title}</h2>
+        <p className="text-muted-foreground mb-6">{steps[currentStep].overview}</p>
+        <div className="mb-4">
+          <Progress value={progressPercentage} className="w-full" />
+          <p className="text-sm text-muted-foreground mt-2">
+            {completedTasks} of {stepTasks[currentStep].length} tasks completed
+          </p>
+        </div>
+        <Description 
+          content={steps[currentStep].content}
           tasks={stepTasks[currentStep]}
           onTaskComplete={handleTaskComplete}
         />
@@ -154,6 +223,6 @@ export function ProjectWorkflow() {
         </Button>
       </div>
     </div>
-  );
+  )
 }
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Sidebar } from './components/Sidebars/SideBar';
 import { RightSidebar } from './components/Sidebars/RightSidebar';
-import { ProjectWorkflow } from './components/ProjectWorkflow';
+import ProjectWorkflow from './components/ProjectWorkflow';
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/toaster";
 import { useIsMobile } from "@/hooks/use-mobile";
