@@ -19,14 +19,17 @@ const steps = [
           { title: "Micro Frontend Overview", link: "#" },
           { title: "Detailed Architecture", link: "#" }
         ],
-        image: "/placeholder.svg?height=300&width=400"
+        image: "/micro-frontend.png",
+        imageAlt: "Micro Frontend Architecture Diagram"
       },
       {
         title: "Digitinary-UI",
         overview: "A UI library designed to maintain consistency across all modules with reusable components and styling.",
         resources: [
           { title: "Digitinary-UI Documentation", link: "#" }
-        ]
+        ],
+        image: "https://upsun.com/static/a8b232ad151be16b7472757b033e7c26/11ff9/3_tier_web_application_deployment_529d2c827e.webp",
+        imageAlt: "Digitinary UI Components"
       }
     ],
     tasks: [

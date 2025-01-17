@@ -13,6 +13,7 @@ interface DescriptionProps {
     title?: string
     overview: string
     image?: string
+    imageAlt?: string
     resources?: Array<{ title: string; link: string }>
     requiredRepos?: string[]
     optionalRepos?: string[]
@@ -38,16 +39,13 @@ export function Description({ content, tasks, onTaskComplete }: DescriptionProps
               <div className="space-y-4 pt-4">
                 <p>{item.overview}</p>
                 
-                {item.resources && (
-                  <div>
-                    <h4 className="font-semibold mb-2">Resources:</h4>
-                    <ul className="list-disc pl-5 space-y-1">
-                      {item.resources.map((resource, idx) => (
-                        <li key={idx}>
-                          <a href={resource.link} className="text-blue-500 hover:underline">{resource.title}</a>
-                        </li>
-                      ))}
-                    </ul>
+                {item.image && (
+                  <div className="my-4 rounded-lg overflow-hidden shadow-lg">
+                    <img 
+                      src={item.image} 
+                      alt={item.imageAlt || item.title} 
+                      className="w-full h-auto object-cover"
+                    />
                   </div>
                 )}
 
