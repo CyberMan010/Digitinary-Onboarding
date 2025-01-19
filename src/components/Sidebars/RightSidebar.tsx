@@ -2,7 +2,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { cn } from "@/lib/utils";
 
 type Department = 'Frontend' | 'Backend' | 'DevOps' | 'HR' | 'QA';
@@ -28,19 +28,36 @@ interface RightSidebarProps {
 export function RightSidebar({ selectedDepartment, onTeamSelect }: RightSidebarProps) {
   const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(true);
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const filteredTeams = teams.filter(team => team.department === selectedDepartment);
+
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node) && isOpen) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
+
   return (
     <div 
-      className={cn(
-        "fixed h-screen transition-all duration-300 ease-in-out border-l",
-        "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700",
-        isOpen ? "w-64" : "w-5",
-        isMobile ? "bottom-0" : "top-0 right-0",
-        "z-20"
-      )}
+    ref={sidebarRef}
+    className={cn(
+      "fixed h-screen transition-all duration-300 ease-in-out border-l",
+      "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700",
+      isOpen ? "w-64" : "w-5",
+      isMobile ? "bottom-0" : "top-0 right-0",
+      "z-20"
+    )}
     >
       <Button 
         variant="ghost" 
