@@ -37,6 +37,9 @@ export function Sidebar({ onDepartmentSelect }: SidebarProps) {
     onDepartmentSelect(department);
   };
 
+
+
+
   return (
     <div className={cn("sidebar", isOpen ? "open" : "closed")}>
       <div className="sidebar-content">
