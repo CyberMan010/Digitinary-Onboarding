@@ -28,7 +28,7 @@ const steps = [
         resources: [
           { title: "Digitinary-UI Documentation", link: "#" }
         ],
-        image: "https://upsun.com/static/a8b232ad151be16b7472757b033e7c26/11ff9/3_tier_web_application_deployment_529d2c827e.webp",
+        image: "https://static.proto.io/images/publicsite/redesigned2021/product/ui-components-spot-illustration.svg?v=6.8.41.0",
         imageAlt: "Digitinary UI Components"
       }
     ],
@@ -96,7 +96,7 @@ const steps = [
           "Test: For the QA team to verify changes.",
           "Staging (STG): Pre-production environment for client reviews."
         ],
-        image: "/placeholder.svg?height=300&width=400",
+        image: "/ui-components-preview.png",
         jiraProcess: [
           "Deploy changes to the Develop environment and verify functionality.",
           "Once verified, move the changes to the Test environment for QA validation.",
