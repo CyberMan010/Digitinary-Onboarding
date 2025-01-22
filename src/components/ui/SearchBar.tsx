@@ -3,10 +3,15 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Search } from 'lucide-react';
-interface SearchBarProps {
-  onSearch: (query: string) => void;
-  className?: string;
-}
+import { SearchBarProps } from '@/types';
+
+
+
+
+
+
+
+
 
 export function SearchBar({ onSearch, className }: SearchBarProps) {
   const [query, setQuery] = useState('');
