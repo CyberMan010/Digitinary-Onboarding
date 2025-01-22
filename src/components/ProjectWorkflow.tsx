@@ -13,29 +13,90 @@ const steps = [
     icon: <FileText className="h-4 w-4" />,
     content: [
       {
-        title: "Micro Frontend",
+        title: "Micro Frontend Architecture",
         overview: "Micro Frontend is a design pattern to split large and complex web applications or modules into light-weight web apps that can be deployed independently.",
-        resources: [
-          { title: "Micro Frontend Overview", link: "#" },
-          { title: "Detailed Architecture", link: "#" }
+        requirements: {
+          core: {
+            webpack: "5.x or higher",
+            typescript: "4.9.x or higher",
+            react: "18.x or higher"
+          },
+          frameworks: {
+            "module-federation": "Latest version",
+            "react-router": "6.x",
+            "state-management": "Redux Toolkit/React Query"
+          }
+        },
+        images: [
+          {
+            src: "/micro-frontend.png",
+            alt: "Micro Frontend Architecture Diagram",
+            caption: "Overview of Micro Frontend Architecture"
+          },
         ],
-        image: "/micro-frontend.png",
-        imageAlt: "Micro Frontend Architecture Diagram"
+        
+        documentation: [
+          {
+            title: "Module Federation Guide",
+            url: "https://webpack.js.org/concepts/module-federation/",
+            description: "Official Webpack Module Federation documentation"
+          },
+          {
+            title: "Micro Frontend Architecture",
+            url: "https://micro-frontends.org/",
+            description: "Comprehensive guide to micro-frontend architecture"
+          }
+        ],
+        repositories: {
+          required: [
+            "container-app: Main application shell",
+            "shared-components: Common UI components"
+          ],
+          optional: [
+            "example-module: Template for new modules",
+            "documentation: Architecture guidelines"
+          ]
+        }
       },
       {
         title: "Digitinary-UI",
         overview: "A UI library designed to maintain consistency across all modules with reusable components and styling.",
-        resources: [
-          { title: "Digitinary-UI Documentation", link: "#" }
+        requirements: {
+          core: {
+            "react": "18.x",
+            "typescript": "4.9.x",
+            "tailwind": "3.x"
+          },
+          tools: {
+            "storybook": "7.x",
+            "jest": "29.x",
+            "testing-library": "Latest version"
+          }
+        },
+        documentation: [
+          {
+            title: "Component Documentation",
+            url: "https://ui.digitinary.com",
+            description: "Interactive component documentation and usage guides"
+          },
+          {
+            title: "Design System",
+            url: "https://www.figma.com/file/digitinary-design",
+            description: "Figma design system and component specifications"
+          }
         ],
-        image: "https://static.proto.io/images/publicsite/redesigned2021/product/ui-components-spot-illustration.svg?v=6.8.41.0",
-        imageAlt: "Digitinary UI Components"
+        repositories: {
+          required: [
+            "digitinary-ui: Main component library",
+            "design-tokens: Design system tokens"
+          ]
+        }
       }
     ],
     tasks: [
       { id: "arch1", description: "Review Micro Frontend architecture", completed: false },
       { id: "arch2", description: "Study Digitinary-UI components", completed: false },
-      { id: "arch3", description: "Set up project structure", completed: false },
+      { id: "arch3", description: "Set up project structure", completed: false }
     ]
   },
   {
@@ -44,16 +105,44 @@ const steps = [
     icon: <Code className="h-4 w-4" />,
     content: [
       {
-        overview: "A description of the key business requirements and objectives for the project.",
-        resources: [
-          { title: "Business Docs Link 1", link: "#" },
-          { title: "Business Docs Link 2", link: "#" }
-        ]
+        title: "Project Overview",
+        overview: "Core business requirements and project objectives",
+        requirements: {
+          functional: {
+            "Authentication": "SSO integration",
+            "Authorization": "Role-based access control",
+            "Data Management": "Real-time updates"
+          },
+          technical: {
+            "Performance": "< 3s load time",
+            "Accessibility": "WCAG 2.1 AA compliant",
+            "Browser Support": "Modern browsers"
+          }
+        },
+        documentation: [
+          {
+            title: "Product Requirements Document",
+            url: "https://confluence.digitinary.com/prd",
+            description: "Detailed product requirements and specifications"
+          },
+          {
+            title: "Technical Specifications",
+            url: "https://confluence.digitinary.com/tech-spec",
+            description: "Technical architecture and implementation details"
+          }
+        ],
+        repositories: {
+          required: [
+            "project-docs: Documentation and specifications",
+            "acceptance-tests: Acceptance test suites"
+          ]
+        }
       }
     ],
     tasks: [
-      { id: "br1", description: "Analyze business requirements", completed: false },
-      { id: "br2", description: "Define project objectives", completed: false },
+      { id: "br1", description: "Review product requirements", completed: false },
+      { id: "br2", description: "Analyze technical specifications", completed: false },
+      { id: "br3", description: "Define acceptance criteria", completed: false }
     ]
   },
   {
@@ -63,19 +152,52 @@ const steps = [
     content: [
       {
         overview: "This section outlines the technical requirements and setup process for the project.",
-        requiredRepos: [
-          "container: Core container repository for the project.",
-          "common-layout: Shared layout repository for consistent design."
+        requirements: {
+          core: {
+            node: "18.x or higher",
+            npm: "8.x or higher",
+            git: "2.x or higher",
+            typescript: "4.9.x or higher"
+          },
+          tools: {
+            ide: "VS Code with recommended extensions",
+            docker: "Latest stable version",
+            kubernetes: "1.24 or higher",
+            postman: "Latest version for API testing"
+          },
+          frameworks: {
+            react: "18.x",
+            nextjs: "13.x",
+            tailwind: "3.x"
+          }
+        },
+        documentation: [
+          {
+            title: "Getting Started Guide",
+            url: "https://docs.digitinary.com/getting-started",
+            description: "Complete setup guide for new developers"
+          },
+          {
+            title: "Architecture Overview",
+            url: "https://docs.digitinary.com/architecture",
+            description: "System architecture and design patterns"
+          },
+          {
+            title: "API Documentation",
+            url: "https://api.digitinary.com/docs",
+            description: "API endpoints and integration guides"
+          }
         ],
-        optionalRepos: [
-          "c360: Core business logic and components.",
-          "User Management: User-related features and services."
-        ],
-        libraries: [
-          "Redux: For state management.",
-          "Digitinary-UI: Reusable UI components.",
-          "Context API: Additional state management for isolated components."
-        ]
+        repositories: {
+          required: [
+            "frontend-core: Main frontend application repository",
+            "api-gateway: API Gateway and service mesh"
+          ],
+          optional: [
+            "design-system: UI component library and design tokens",
+            "documentation: Project documentation and guides"
+          ]
+        }
       }
     ],
     tasks: [
@@ -96,12 +218,18 @@ const steps = [
           "Test: For the QA team to verify changes.",
           "Staging (STG): Pre-production environment for client reviews."
         ],
-        image: "/ui-components-preview.png",
         jiraProcess: [
           "Deploy changes to the Develop environment and verify functionality.",
           "Once verified, move the changes to the Test environment for QA validation.",
           "After successful testing, mark the tickets as Ready for Test and prepare for deployment to STG."
-        ]
+        ],
+        images: [
+          {
+            src: "/ui-components-preview.png",
+            alt: "Micro Frontend Architecture Diagram",
+            caption: "Overview of Micro Frontend Architecture"
+          },
+        ],
       }
     ],
     tasks: [
@@ -189,14 +317,22 @@ export default function ProjectWorkflow() {
 
   return (
     <div className="container mx-auto px-4 py-8 space-y-8">
-      <h1 className="text-3xl font-bold text-center mb-6">Arena Project Workflow</h1>
+    <h1 className="text-3xl font-bold text-center mb-6">Welcome to Arena Project Workflow</h1>
+    <div className="relative">
       <Stepper 
         steps={steps} 
         currentStep={currentStep} 
         onStepClick={handleStepClick} 
         completedSteps={completedSteps}
       />
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+       <div className="mt-4 text-center text-sm text-muted-foreground">
+      Step {currentStep + 1} of {steps.length}
+    </div>
+    </div>
+      <div 
+        className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-all duration-300 ease-in-out"
+        key={currentStep} // Force re-render on step change
+      >
         <h2 className="text-2xl font-semibold mb-4">{steps[currentStep].title}</h2>
         <p className="text-muted-foreground mb-6">{steps[currentStep].overview}</p>
         <div className="mb-4">
@@ -228,4 +364,3 @@ export default function ProjectWorkflow() {
     </div>
   )
 }
-

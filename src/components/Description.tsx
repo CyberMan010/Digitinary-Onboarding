@@ -1,30 +1,10 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Checkbox } from "@/components/ui/checkbox"
 import { cn } from "@/lib/utils"
+import { DescriptionProps } from "@/types" 
 
-interface Task {
-  id: string
-  description: string
-  completed: boolean
-}
 
-interface DescriptionProps {
-  content: Array<{
-    title?: string
-    overview: string
-    image?: string
-    imageAlt?: string
-    resources?: Array<{ title: string; link: string }>
-    requiredRepos?: string[]
-    optionalRepos?: string[]
-    libraries?: string[]
-    environments?: string[]
-    jiraProcess?: string[]
-    steps?: string[]
-  }>
-  tasks: Task[]
-  onTaskComplete: (taskId: string, completed: boolean) => void
-}
+
 
 export function Description({ content, tasks, onTaskComplete }: DescriptionProps) {
   return (
@@ -39,13 +19,27 @@ export function Description({ content, tasks, onTaskComplete }: DescriptionProps
               <div className="space-y-4 pt-4">
                 <p>{item.overview}</p>
                 
-                {item.image && (
-                  <div className="my-4 rounded-lg overflow-hidden shadow-lg">
-                    <img 
-                      src={item.image} 
-                      alt={item.imageAlt || item.title} 
-                      className="w-full h-auto object-cover"
-                    />
+                {item.images && item.images.length > 0 && (
+                  <div className="space-y-4">
+                    <h4 className="font-semibold">Structures:</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {item.images.map((image, idx) => (
+                        <div key={idx} className="space-y-2">
+                          <div className="rounded-lg overflow-hidden border border-border">
+                            <img 
+                              src={image.src} 
+                              alt={image.alt} 
+                              className="w-full h-auto object-cover"
+                            />
+                          </div>
+                          {image.caption && (
+                            <p className="text-sm text-muted-foreground text-center">
+                              {image.caption}
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
 
@@ -81,6 +75,43 @@ export function Description({ content, tasks, onTaskComplete }: DescriptionProps
                     </ol>
                   </div>
                 )}
+
+                {item.requirements && (
+                  <div className="space-y-4">
+                    <h4 className="font-semibold">Requirements:</h4>
+                    {Object.entries(item.requirements).map(([category, items]) => (
+                      <div key={category} className="space-y-2">
+                        <h5 className="font-medium capitalize">{category}</h5>
+                        <ul className="list-disc pl-5 space-y-1">
+                          {Object.entries(items as any).map(([name, version]) => (
+                            <li key={name}>{name}: {version}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {item.documentation && (
+                  <div className="space-y-4">
+                    <h4 className="font-semibold">Documentation:</h4>
+                    <ul className="space-y-2">
+                      {item.documentation.map((doc, idx) => (
+                        <li key={idx}>
+                          <a 
+                            href={doc.url}
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {doc.title}
+                          </a>
+                          <p className="text-sm text-muted-foreground">{doc.description}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </AccordionContent>
           </AccordionItem>
@@ -110,4 +141,3 @@ export function Description({ content, tasks, onTaskComplete }: DescriptionProps
     </div>
   )
 }
-
